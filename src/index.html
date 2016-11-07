@@ -1,0 +1,108 @@
+<html>
+<head>
+	<title>The Magical Wheel</title>
+	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="css/materialize-icon.css">
+	<link rel="stylesheet" href="css/sweetalert2.css">
+	<link rel="stylesheet" href="css/app.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<div id="backscene"></div>
+	<div id="curtains">
+		<div id="curtainLeft"></div>
+		<div id="curtainRight">
+		</div>
+	</div>
+	<div class="la-anim-10" id="loading"></div>
+	<div id="frontscene">
+		<div class="relative-container">
+			<div class="container">
+				<section id="qna" class="section">
+					<div class="row">
+						<div class="col s10 push-s1">
+							<div class="card flow-text">
+								<div class="card-image">
+									<img id="question-bg" src="../assets/images/question_background/question_header.jpg">
+									<span class="card-title" id="question-container"></span>
+								</div>
+								<div class="card-content center">
+									<div class="row">
+										<div class="col s12">
+											<span class="answer">Answer</span>
+											<div id="boxes-container"></div>
+										</div>
+									</div>
+									<div class="row">
+										<button data-target="wheelModal" class="modal-trigger wheel btn btn-large red waves-effect col s4 push-s4">Spin</button>
+
+									</div>		
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="modals">
+		<div id="wheelModal" class="modal">
+			<div class="modal-content table">
+				<div  id="result" >
+					<div id="result-content" class="center flow-text card-panel white-text">
+						<h4 id="result-title"></h4>
+						<p id="result-text"></p>
+					</div>
+					<div id="continue"></div>
+				</div>
+				<div id="spinner" class="table">
+				<img src="../assets/images/wheel.png" id="wheel" width="986" height="986">
+					<div id="stop-container">
+						<div id="stop-content" class="disable">
+							<a href="#" class="round">STOP<span class="round">Stop the wheel!</span></a>
+						</div>
+					</div>
+				</div>
+				<div id="memes">
+
+				</div>
+			</div>
+		</div>
+
+		<div id="selectQuestion" class="modal">
+			<div class="modal-content">
+				<h4>Select question</h4>
+				<div id="selectWrapper"></div>
+			</div>
+		</div>
+
+		<div id="answerLetter" class="modal">
+			<div class="modal-content center">
+				<h3>Your answer is?</h3>
+				<div class="input-field">
+					<input type="text" id="pickLetter" maxlength="1">
+				</div>
+				<button class="btn btn-large waves-effect col s4 push-s4 confirm disabled">Confirm</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	window.jQuery = window.$ = require('jquery');
+	window.Hammer = require('./js/libraries/hammer.min.js');
+	</script>
+	<script src="js/libraries/materialize.js"></script>
+	<script src="js/libraries/velocity.ui.js"></script>
+	<script src="js/libraries/jquery.key.js"></script>
+	<script src="js/libraries/sweetalert2.js"></script>
+	<script src="../config.js"></script>
+	<script src="js/controllers/SpinController.js"></script>
+	<script src="js/controllers/GameController.js"></script>
+	<script src="js/controllers/MediaController.js"></script>
+	<script src="js/app.js"></script>
+
+</body>
+</html>
