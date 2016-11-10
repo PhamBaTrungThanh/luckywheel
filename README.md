@@ -21,6 +21,26 @@ Lớp: TH20.10
 
 #### Ngôn ngữ lập trình
 Viết bằng Javascript, HTML, CSS
+
+#### Hình ảnh minh hoạ
+Trang khởi đầu
+![start-page](docs/bat dau.png?raw=true)
+
+Quản lý câu hỏi
+![manage-question](docs/sua cau hoi.png?raw=true)
+
+Quản lý vòng quay (thêm, sửa, xoá)
+![manage-wheel](docs/sua-vong-quay.png?raw=true)
+
+Chọn câu hỏi
+![select-question](docs/chon-cau-hoi.png?raw=true)
+
+Giao diện trả lời câu hỏi
+![answer](docs/tra-loi-cau-hoi.png?raw=true)
+
+Giao diện quay
+![spin](docs/xoay.png?raw=true)
+
 #### Hướng dẫn sử dụng
 ```bash
 # Khởi chạy bằng lệnh 
