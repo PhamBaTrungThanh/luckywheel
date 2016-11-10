@@ -1,0 +1,138 @@
+<html>
+<head>
+	<title>The Magical Wheel Generator</title>
+	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="css/materialize-icon.css">
+	<link rel="stylesheet" href="css/sweetalert2.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+		body {
+			overflow: visible;
+		}
+		#c {
+			display: none;
+		}
+		.see-wheel.pinned {
+			margin-top: 80px;
+		}
+		.see-wheel.pin-top {
+			margin-top: 44px;
+		}
+		#headers {
+			width: 100%;
+			z-index: 10;
+			background: #ffffff;
+		}
+		#headers.pinned div.row:first-child {
+			display: none;
+		}
+		.hidden {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="c" width="985" height="985" style="">
+	</canvas>
+	<div class="wrapper">
+		<div id="headers" class="pin-top">
+			<div class="row">
+				<div class="col s12 center-align">
+					<h3 class="header">Tuỳ chỉnh</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<ul class="tabs">
+						<li class="tab col s3"><a href="#cauhoi">Câu hỏi</a></li>
+						<li class="tab col s3"><a href="#vongquay">Vòng quay</a></li>
+						<li class="tab col s3"><a href="#amthanh">Âm thanh</a></li>
+						<li class="tab col s3 disabled"><a href="#memes">Memes</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="container" class="hidden">
+			<div id="cauhoi">
+				<div class="questions">
+					<div class="center-align">
+						<h5>Chưa có câu hỏi</h5>
+					</div>
+				</div>
+				<div class="controller row">
+					<div class="col s12 center-align">
+						<a class="btn green darken-2 waves-effect" id="addQuestion">Thêm câu hỏi</a>
+						<a class="btn green darken-2 waves-effect tooltipped" data-position="top" data-delay="0" data-tooltip="Nếu bạn không tìm thấy hình ảnh mình vừa thêm vào" id="reload">Tải lại thư mục hình ảnh</a>
+					</div>
+				</div>
+			</div>
+			<div id="vongquay">
+				<div class="row">
+					<div class="col s12 center-align">
+						<h4>Ô trong vòng quay</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s10">
+						<div class="wheelContainer">
+						</div>
+					</div>
+					<div class="col s2">
+						<a class="waves-effect waves-light green darken-2 btn-large see-wheel pin-top">Xem</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 center-align">
+						<a class="btn green darken-2 waves-effect" id="addWheelBox">Thêm ô</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+		<div id="footer" class="row">
+			<div class="col s12 center-align">
+				<a class="waves-effect waves-light blue darken-2 btn-large col s2 push-s5" id="save">Lưu</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		window.jQuery = window.$ = require('jquery');
+		window.Hammer = require('./js/libraries/hammer.min.js');
+	</script>
+	<script src="./js/libraries/materialize.js"></script>
+	<script src="js/libraries/fabric.min.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/wheel-generator.js"></script>
+	<script src="js/controllers/configurationController.js"></script>
+	<script src="js/libraries/sweetalert2.js"></script>
+	<script>
+	jQuery(document).ready(function() {
+		configurationController.reloadQuestions();
+		configurationController.reloadWheel();
+		
+		$('.see-wheel').pushpin({ top: 182.5 }).on('click', () => {
+			configurationController.viewWheel();
+		});
+		$('#headers').pushpin({top: 200});
+		$('#addQuestion').on('click', function() {
+			configurationController.addQuestion();
+		});
+		$('#addWheelBox').on('click', function() {
+			configurationController.addWheelBox();
+		});
+		$('#reload').on('click', function() {
+			configurationController.reloadAll();
+		});
+		$('#save').on('click', function() {
+			configurationController.save();
+		})
+
+	})
+		
+	</script>
+
+</body>
+</html>

@@ -1,21 +1,25 @@
-(function(){
-
+/* globals Config, fabric */
+function renderWheel(wheel) {
 	var
 	start_x      = 500,
 	start_y      = 300,
 	outer_length = 500,
 	inner_length = 130,
-	radius       = 0;
+	radius       = 0,
+    degree       = 0,
 	old_top      = 0,
 	old_left     = 0,
 	canvas       = this.__canvas = new fabric.StaticCanvas('c', {backgroundColor: 'transparent'}),
 	buffer       = 0,
 	stroke_width = 6,
-	text_lib     = Config.shortListForRender(),
-	color_palete = Config.colorPalete();
+	text_lib     = [];
 
 
 	//begin calculation
+	for (var i = 0; i < wheel.length; i++) {
+		const text = wheel[i].text.charAt(0).toUpperCase() + wheel[i].text.slice(1);
+		text_lib.push(text);
+	}
 	degree = radius = 360 / text_lib.length;
 	radius = radius*Math.PI/180;
 	var d = '';
@@ -36,7 +40,7 @@
 		radius: outer_length + buffer,
 		left: outer_length + buffer + stroke_width/2,
 		top: outer_length + buffer + stroke_width/2
- })
+ });
 	var inner_shape = new fabric.Circle({
 		originX: 'center',
 		originY: 'center',
@@ -44,7 +48,7 @@
 		radius: inner_length + 60,
 		top: outer_length + 40 + stroke_width/2,
 		left: outer_length + stroke_width/2
- })
+ });
 	var group_all = new fabric.Group([], {
 		top: 0,
 		left: 0
@@ -67,7 +71,7 @@
 		var path = new fabric.Path(d, {
 			originX: 'center',
 			originY: 'center',
-			fill: color_palete[i].path
+			fill: wheel[i].color.path
 	 });  // For color and size
 
 		var glower = new fabric.Path(d, { // For inner glow
@@ -76,10 +80,10 @@
 			originX: 'center',
 			originY: 'center',
 			strokeWidth: 5,
-			fill: color_palete[i].path,
+			fill: wheel[i].color.path,
 	 });
 		glower.setShadow({
-			color: color_palete[i].glow,
+			color: wheel[i].color.glow,
 			offsetX: 0,
 			offsetY: 0,
 			blur: 50
@@ -90,7 +94,7 @@
 			originX: 'center',
 			originY: 'center',
 			fill: 'transparent',
-			stroke: color_palete[i].glow,
+			stroke: wheel[i].color.glow,
 			strokeWidth: stroke_width	
 	 });
 		var dot = new fabric.Circle({
@@ -126,8 +130,8 @@
 		var group = new fabric.Group([path, base, glower], {
 	 });
 
-		if (old_top == 0) {
-			console.log(path.width, path.height)
+		if (old_top === 0) {
+			console.log(path.width, path.height);
 			old_top = outer_length + path.height/2 - stroke_width;
 			old_left = 0;
 	 }
@@ -174,5 +178,5 @@
 	canvas.setWidth(outer_length*2 - stroke_width * 2 - 2);
 	canvas.setHeight(outer_length*2 - stroke_width * 2 - 1);
 	var img = canvas.toDataURL("image/png");
-	//document.write('<img src="'+img+'"/>');
-})();
+	return img;
+}
