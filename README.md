@@ -25,6 +25,7 @@ Viết bằng Javascript, HTML, CSS
 ```bash
 # Khởi chạy bằng lệnh 
 npm electron
+# Sau khi quay xong nhấn vào khu vực khung kết quả để tiếp tục
 # Các phím tắt cần nhớ
 F8: Lật toàn bộ các ô chữ
 F9: Danh sách câu hỏi
