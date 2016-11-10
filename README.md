@@ -1,40 +1,49 @@
-# electron-quick-start
+# Lucky Wheel - Vòng quay may mắn
 
-**Clone and run for a quick way to see an Electron in action.**
+**Sản phẩm tham dự cuộc thi Tìm kiếm tài năng sinh viên 2016**
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start) within the Electron documentation.
+Họ và tên sinh viên: Phạm Bá Trung Thành
 
-**Use this app along with the [Electron API Demos](http://electron.atom.io/#get-started) app for API code examples to help you get started.**
+Mã sinh viên: 15163301
 
-A basic Electron application needs just these files:
+Lớp: TH20.10
 
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
+## Mô tả sản phẩm
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
+#### Mục đích sử dụng
+- Dùng trong các hoạt động ngoại khoá
+- Trong các chương trình vui chơi có thưởng
 
-## To Use
+#### Chức năng
+- Quản lý ngân hàng câu hỏi
+- Cung cấp giao diện tương tác trực quan với người chơi
+- Tạo sự hứng thú
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
+#### Ngôn ngữ lập trình
+Viết bằng Javascript, HTML, CSS
+#### Hướng dẫn sử dụng
 ```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
-npm install
-# Run the app
-npm start
+# Khởi chạy bằng lệnh 
+npm electron
+# Các phím tắt cần nhớ
+F8: Lật toàn bộ các ô chữ
+F9: Danh sách câu hỏi
 ```
 
-Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
+#### Hạn chế
+- Do thời gian có hạn, một vài chức năng như Âm thanh, Meme vẫn chưa hoàn thiện
+- Đóng gói và phân phối sản phẩm chưa thân thiện với người dùng
+- Cài đặt khó
 
-## Other Example Apps
+#### Các thư viện được sử dụng
+[Jquery](http://jquery.com/)
 
-For more example apps, see the
-[list of boilerplates](http://electron.atom.io/community/#boilerplates)
-created by the awesome electron community.
+[Velocity.JS](http://julian.com/research/velocity/)
 
-#### License [CC0 1.0 (Public Domain)](LICENSE.md)
+[Fabric](http://fabricjs.com)
+
+[SweetAlert2](https://limonte.github.io/sweetalert2/)
+
+[Materializecss](http://materializecss.com/)
+
+[Electron](http://electron.atom.io)
