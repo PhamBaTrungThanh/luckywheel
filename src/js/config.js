@@ -56,7 +56,7 @@ const _defaultConfig = {
 		fs.writeFileSync('./assets/wheel.png', base64Data, 'base64');
 	};
 	const save = () => {
-		fs.writeFileSync('./src/config.json', JSON.stringify(_config), 'utf-8');
+		fs.writeFileSync('config.json', JSON.stringify(_config), 'utf-8');
 	};
 	const toArray = (object) => {
 
@@ -68,7 +68,8 @@ const _defaultConfig = {
 
 	(function() {
 		// Read data from string;
-		const data = fs.readFileSync('./src/config.json', 'utf-8');
+
+		const data = fs.readFileSync('config.json', 'utf-8');
 		_config = JSON.parse(data);
 		var angle = 360 / _config.wheel.length;
 		var direction = [];
