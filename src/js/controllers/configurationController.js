@@ -14,7 +14,7 @@ const configurationController = (function() {
     }
     const createColor = (index) => {
         if (index > colorPallet.length - 1) {
-            index = index - Math.round(index / (colorPallet.length - 1)) * colorPallet.length - 1;
+            index = index - Math.round(index / (colorPallet.length - 1)) * colorPallet.length;
         }
         return {
             path: colorPallet[index].path,
@@ -37,7 +37,7 @@ const configurationController = (function() {
             jQuery(`#question-${index}`).remove();
             Config.removeQuestion(index - 1);
             Materialize.toast('Đã xoá câu hỏi', 4000);
-            configurationController.reloadQuestions();
+            //configurationController.reloadQuestions();
         });      
     }
     const deleteWheelBox = (index) => {
@@ -56,7 +56,7 @@ const configurationController = (function() {
             jQuery(`#wheel-box-${index}`).remove();
             Config.removeWheelBox(index - 1);
             Materialize.toast('Đã xoá ô', 4000);
-            configurationController.reloadWheel();
+            //configurationController.reloadWheel();
         });   
     }
     const getWheelBox = () => {
@@ -129,7 +129,7 @@ const configurationController = (function() {
                                     </div>
                                 </form>
                             </div>
-                            <div class="card-action"><a class="btn-flat waves-effect red-text text-darken-2 delete-question" data-index="${index}">Xoá câu hỏi</a></div>
+                            <div class="card-action"><a class="btn-flat waves-effect waves-red red-text text-darken-2 delete-question" data-index="${index}">Xoá câu hỏi</a></div>
                         </div>
                     </div>
                 </div>
@@ -181,16 +181,16 @@ const configurationController = (function() {
                                     </div>
                                 </form>
                             </div>
-                            <div class="card-action"><a class="btn-flat waves-effect red-text text-darken-2 delete-box" data-index="${index}">Xoá ô</a></div>
+                            <div class="card-action"><a class="btn-flat waves-effect waves-red red-text text-darken-2 delete-box" data-index="${index}">Xoá ô</a></div>
                         </div>
                     </div>
                 </div>
             </div>`;
     }
     return {
-        reloadQuestions: function() {
-            const list = Config.getQuestions();
-             const qBGList = Config.getBackgroundDir();
+        reloadQuestions: function(firstTime = false) {
+            const list = (firstTime) ? Config.getQuestions() : getQuestions();
+            const qBGList = Config.getBackgroundDir();
             const tBGList = Config.getImageDir();
             if (list.length > 0) {
                 jQuery('.questions').first().html('');
@@ -223,18 +223,8 @@ const configurationController = (function() {
             });
         },
         reloadAll: () => {
-            swal({
-                type: 'warning',
-                title: 'Bạn chắc chắn?',
-                text: 'Việc tải lại sẽ xoá hết những gì bạn chưa lưu',
-                showCancelButton: true,
-                cancelButtonText: 'Không',
-                confirmButtonText: 'Có',
-                closeOnConfirm: true,
-            }, function() {
-                configurationController.reloadQuestions();
-                Materialize.toast('Đã tải lại', 4000);
-            });
+            configurationController.reloadQuestions();
+            Materialize.toast('Đã tải lại', 4000);
         },
         viewWheel: () => {
             swal({
@@ -246,8 +236,8 @@ const configurationController = (function() {
                 animation: false
             });
         },
-        reloadWheel: () => {
-            const list = Config.getWheel();
+        reloadWheel: (firstTime = false) => {
+            const list = (firstTime) ? Config.getWheel() : getWheelBox();
             jQuery('.wheelContainer').first().html('');
             jQuery.each(list, (index, node) => {
                 jQuery('.wheelContainer').first().append(createWheelBoxHTML(index + 1, node.text, node.result.title, node.result.text, node.type));

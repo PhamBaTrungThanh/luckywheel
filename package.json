@@ -1,12 +1,11 @@
 {
-  "name": "electron-quick-start",
+  "name": "luckywheel",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Sản phẩm tham dự cuộc thi Tìm kiếm tài năng sinh viên HUBT 2016",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
     "Electron",
     "quick",
@@ -14,10 +13,11 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Phạm Bá Trung Thành",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "electron-builder": "^7.24.1"
   },
   "dependencies": {
     "jquery": "^3.1.1",

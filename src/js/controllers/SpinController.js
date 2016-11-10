@@ -143,14 +143,14 @@ var SpinController = (function($) {
 		$resultTitle.parent().css({backgroundColor: _current.color.path});
 		$resultTitle.parent().css({background: 'linear-gradient(to bottom right, '+_current.color.glow+', '+_current.color.path+')'});
 		$resultTitle.text(_current.result.title);
-		$resultText.text(_current.type);
+		$resultText.text(_current.result.text);
 
 		currentType = _current.type;
 		
 	},
 	redirecting = function() {
 		console.log('animation finished, redirecting');
-		showMeme(currentType);
+		//showMeme(currentType);
 		$btnContinue.addClass('clickable');
 	}, 
 	route = function() {
@@ -159,18 +159,18 @@ var SpinController = (function($) {
 				case 'sorry':
 					console.log('`sorry` type');
 					reset();
-					$('#wheelModal').closeModal();
+					$('#wheelModal').modal('close');
 					break;
 				case 'prize':
 					console.log('`prize` type');
 					reset();
-					$('#wheelModal').closeModal();
+					$('#wheelModal').modal('close');
 					GameController.showAnswerModal();
 					break;
 				case 'bingo':
 					console.log('`bingo` type');
 					reset();
-					$('#wheelModal').closeModal();
+					$('#wheelModal').modal('close');
 					GameController.makeLuckyFlip();
 					break;		
 			}
@@ -243,7 +243,7 @@ var SpinController = (function($) {
 			return false;
 		});
 
-		$('.modal-trigger.wheel').leanModal({
+		$('#wheelModal').modal({
 			dismissible: false, // Modal can be dismissed by clicking outside of the modal
 			opacity: 0.6,
 			ready: function() {

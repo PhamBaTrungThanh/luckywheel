@@ -51,21 +51,32 @@ function renderWheel(wheel) {
  });
 	var group_all = new fabric.Group([], {
 		top: 0,
-		left: 0
+		left: 0,
+		hasBorders: false,
  });
 	var group_all_text = new fabric.Group([], {
 		top: 0,
-		left: 0
+		left: 0,
+		hasBorders: false,
  });
 	var animated = new fabric.Group([], {
 		top: 0,
 		left: 0,
 		centeredRotation: true,
 		originX: 'center',
-		originY: 'center'
+		originY: 'top',
+		hasBorders: false,
  });
-	//group_all.add(outer_circle);
-	group_all.add(inner_shape);
+ 	var noAnimated = new fabric.Group([], {
+		top: 0,
+		left: 0,
+		centeredRotation: true,
+		originX: 'center',
+		originY: 'center',
+		hasBorders: false,
+ });
+	//group_all.addWithUpdate(outer_circle);
+	//group_all.add(inner_shape);
 	for (var i = 0; i <= text_lib.length - 1; i++) {
 
 		var path = new fabric.Path(d, {
@@ -111,8 +122,13 @@ function renderWheel(wheel) {
 			height: path.getHeight(),
 			fill: 'transparent',
 			originX: 'center',
-			originY: 'center'
+			originY: 'center',
+			hasBorders: false,
+			strokeWidth: 0,
+			stroke: 'transparent',
+			selectable: false,
 	 });
+	 text_holder.hasBorders = false;
 
 		var text = new fabric.Text(text_lib[i], {
 		  fontSize: 60,
@@ -120,18 +136,20 @@ function renderWheel(wheel) {
 		  originY: 'center',
 		  left: -40,
 		  top: 5,
-		  fontFamily: 'Myriad Pro',
+		  fontFamily: 'Roboto',
 		  fill: 'white',
-		  shadow: 'rgba(0,0,0,0.5) 0 0 5px'
+		  shadow: 'rgba(0,0,0,0.5) 0 0 5px',
+		  hasBorders: false,
+		  selectable: false,
 	 });
 
 		var group_text = new fabric.Group([text_holder, text, dot], {	
 	 });
 		var group = new fabric.Group([path, base, glower], {
+			hasBorders: false,
 	 });
 
 		if (old_top === 0) {
-			console.log(path.width, path.height);
 			old_top = outer_length + path.height/2 - stroke_width;
 			old_left = 0;
 	 }
@@ -149,12 +167,12 @@ function renderWheel(wheel) {
 		group.set({
 			top: new_top,
 			left: new_left,
-			selection: true,
+			selection: false,
 			angle: i*degree
 	 });
 
 
-		/// ADDING BID DOT outside
+		/// addWithUpdateING BID DOT outside
 
 		var big_dot = new fabric.Circle({
 			radius: 10,
@@ -165,18 +183,32 @@ function renderWheel(wheel) {
 			left: (outer_length - buffer)/-2 + buffer/4,
 			top: 0
 	 });
-		//group.add(big_dot);
-		group_all.add(group);
+		//group.addWithUpdate(big_dot);
+		group_all.addWithUpdate(group);
 		group_all_text.add(group_text);
  }
-	animated.add(group_all);
-	animated.add(group_all_text);
+	animated.addWithUpdate(group_all);
+	animated.addWithUpdate(group_all_text);
 	//animated.setAngle(90);
-	console.log(d);
-	canvas.add(animated);
+	//console.log(d);
 
-	canvas.setWidth(outer_length*2 - stroke_width * 2 - 2);
-	canvas.setHeight(outer_length*2 - stroke_width * 2 - 1);
+	
+
+	const ani_width = animated.width;
+	const ani_height = animated.height;
+	const ani_top  = -(ani_height - ani_width)/2;
+	const ani_left = ani_width/2;
+	animated.set({top: ani_top, left: ani_left});
+	canvas.setWidth(ani_width);
+	canvas.setHeight(ani_width);
+
+	ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	canvas.add(animated);
+	animated.centerH();
+	console.log(ani_width, ani_height);
+	console.log(animated);
+
 	var img = canvas.toDataURL("image/png");
 	return img;
 }

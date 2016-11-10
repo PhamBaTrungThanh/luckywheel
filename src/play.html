@@ -23,18 +23,18 @@
 						<div class="col s10 push-s1">
 							<div class="card flow-text">
 								<div class="card-image">
-									<img id="question-bg" src="../assets/images/question_background/question_header.jpg">
+									<img id="question-bg" src="../assets/image/question_header.jpg">
 									<span class="card-title" id="question-container"></span>
 								</div>
 								<div class="card-content center">
 									<div class="row">
 										<div class="col s12">
-											<span class="answer">Answer</span>
+											<span class="answer">Đáp án</span>
 											<div id="boxes-container"></div>
 										</div>
 									</div>
 									<div class="row">
-										<button data-target="wheelModal" class="modal-trigger wheel btn btn-large red waves-effect col s4 push-s4">Spin</button>
+										<button data-target="wheelModal" class="modal-trigger wheel btn btn-large red waves-effect col s4 push-s4">Xoay</button>
 
 									</div>		
 
@@ -53,16 +53,16 @@
 			<div class="modal-content table">
 				<div  id="result" >
 					<div id="result-content" class="center flow-text card-panel white-text">
-						<h4 id="result-title"></h4>
+						<h2 id="result-title"></h2>
 						<p id="result-text"></p>
 					</div>
 					<div id="continue"></div>
 				</div>
 				<div id="spinner" class="table">
-				<img src="../assets/images/wheel.png" id="wheel" width="986" height="986">
+				<img src="../assets/wheel.png" id="wheel" width="986" height="986">
 					<div id="stop-container">
 						<div id="stop-content" class="disable">
-							<a href="#" class="round">STOP<span class="round">Stop the wheel!</span></a>
+							<a href="#" class="round">DỪNG<span class="round">Dừng xoay!</span></a>
 						</div>
 					</div>
 				</div>
@@ -74,18 +74,18 @@
 
 		<div id="selectQuestion" class="modal">
 			<div class="modal-content">
-				<h4>Select question</h4>
+				<h4>Chọn câu hỏi</h4>
 				<div id="selectWrapper"></div>
 			</div>
 		</div>
 
 		<div id="answerLetter" class="modal">
 			<div class="modal-content center">
-				<h3>Your answer is?</h3>
+				<h3>Câu trả lời của bạn là?</h3>
 				<div class="input-field">
 					<input type="text" id="pickLetter" maxlength="1">
 				</div>
-				<button class="btn btn-large waves-effect col s4 push-s4 confirm disabled">Confirm</button>
+				<button class="btn btn-large waves-effect col s4 push-s4 confirm disabled">Xác nhận</button>
 			</div>
 		</div>
 	</div>

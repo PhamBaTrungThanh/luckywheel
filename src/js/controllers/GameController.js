@@ -62,7 +62,7 @@ var GameController = (function() {
 		$(_answers).each(function(index, answer) {
 			var p = $("<p></p>")
 		    for (var i = 0; i < answer.length; i++) {
-
+			  var an
 		      var _class = (answer[i] == " ") ? 'space box hover-off' : 'box';
 		      if ( (typeof answer[i+1] === 'ftp://ftp.') || (typeof answer[i-1] === 'ftp://ftp.')) {
 		        /* do nothing */
@@ -77,9 +77,10 @@ var GameController = (function() {
 		      var t = (answer[i] == " ") ? "" : answer[i];
 		      var span = $("<span></span>")
 			            .addClass(_class)
-			            .attr('data-answer', answer[i].toUpperCase())
+			            .attr('data-answer', vietNamChar(answer[i].toUpperCase()))
+						.attr('data-real-answer', answer[i].toUpperCase())
 			            .attr('data-flipped', 'false')
-			            .text(t)
+			            .text(vietNamChar(t.toUpperCase()))
 		      if (answer[i] != ' ') {
 		        span.on('click', function(target) {
 		        	
@@ -90,6 +91,19 @@ var GameController = (function() {
 		    }
 		    $answerBox.append(p);
 		});
+	},
+	vietNamChar = (char) => {
+		char = char.replace(/(À|Á|Ả|Ã|Ạ)/, 'A');
+		char = char.replace(/(Ầ|Ấ|Ẩ|Ẫ|Ậ)/, 'Â');
+		char = char.replace(/(Ằ|Ắ|Ẳ|Ẵ|Ặ)/, 'Ă');
+		char = char.replace(/(Ò|Ó|Ỏ|Õ|Ọ)/, 'O');
+		char = char.replace(/(Ồ|Ố|Ổ|Ỗ|Ộ)/, 'Ô');
+		char = char.replace(/(Ờ|Ớ|Ở|Ỡ|Ợ)/, 'Ơ');
+		char = char.replace(/(Ù|Ú|Ủ|Ũ|Ụ)/, 'U');
+		char = char.replace(/(Ừ|Ứ|Ử|Ữ|Ự)/, 'Ư');
+		char = char.replace(/(Ì|Í|Ỉ|Ĩ|Ị)/, 'I');
+		char = char.replace(/(Ỳ|Ý|Ỷ|Ỹ|Ỵ)/, 'Y');
+		return char;
 	},
 	setQuestion = function(text) {
 		$question.text(text);
@@ -106,8 +120,10 @@ var GameController = (function() {
 		console.log('remaining letter: ', remaningLetters);
 	}
 	flipAllBox = function() {
-		var _list = $('span.box[data-flipped=false]:not(.space)');
+		var _list = $('span.box:not(.space)');
 		_list.each(function(index, node) {
+			$(node).text($(node).attr('data-real-answer'));
+			$(node).attr('data-flipped', 'false');
 			flipBox($(node), index);
 		});
 		console.log('flip all ' + _list.length + ' remaining box');
@@ -147,8 +163,8 @@ var GameController = (function() {
 			$(list).each(function(index, value) {
 				var _class  = 'collection-item';
 					_class += (value.isActive == true) ? ' active' : '';
-				var _text   = 'Question ' + (index+1)
-					_text  += (value.isComplete == true) ? '<span class="badge">Complete</span>' : '';
+				var _text   = 'Câu hỏi thứ ' + (index+1)
+					_text  += (value.isComplete == true) ? '<span class="badge">Hoàn thành</span>' : '';
 				var $option = $('<a></a>');
 					$option.attr('href', "#!");
 					$option.html(_text);
@@ -156,7 +172,7 @@ var GameController = (function() {
 				if (value.isComplete == false && value.isActive == false) {
 					$option.on('click', function() {
 						newGame(index);
-						$selectModal.closeModal();
+						$selectModal.modal('close');
 						openCurtain();
 					})
 				}	
@@ -166,7 +182,8 @@ var GameController = (function() {
 
 			$selectWrapper.html('').append($wrapper);
 			closeCurtain(function() {
-				$selectModal.openModal({dismissible: false});
+				console.log('open modal');
+				$selectModal.modal('open');
 			});
 			
 		}
@@ -175,28 +192,29 @@ var GameController = (function() {
 	},
 	registerInputHandler = function() {
 	    $answerer.on('input change', function() {
-	      
+	      aceptedChar = ['Â', 'Ă', 'Ô', 'Ơ', 'Ư']
 	      var t = $(this).val().toUpperCase().charCodeAt(0);
-	      if ((65 <= t) && (t<=90)) {
+		  var fallback = vietNamChar($(this).val().toUpperCase().charAt(0));
+	      if (((65 <= t) && (t<=90)) || jQuery.inArray(fallback, aceptedChar)) {
 	      	$(this).val($(this).val().toUpperCase());
 	        $btnConfirm.removeClass('disabled');
 	        return true;
 	      } else {
-	        $(this).val('').focus();
+	        //$(this).val('').focus();
 	      }
 	    });
 	},
 	registerConfirmHandler = function() {
 		$btnConfirm.click(function() {
 			if (!$btnConfirm.hasClass('disabled') && $answerer.val() != '') {
-				myAnswerIs($answerer.val());
+				myAnswerIs($answerer.val().charAt(0).toUpperCase());
 			}
 		});		
 	},
 	registerFlipAllHandle = function() {
 		swal({
-			title: "Warning",
-			text: "Do you want to flip all the box?",
+			title: "Chú ý",
+			text: "Bạn muốn lật hết tất cả các ô chữ?",
 			type: "warning",
 			showCancelButton: true,
 			closeOnConfirm: true
@@ -209,10 +227,11 @@ var GameController = (function() {
 
 	},
 	myAnswerIs = function(letter) {
+		console.log(letter);
 		MediaController.stopAllAudio();
 		var _list = $('span.box[data-answer=' + letter + ']');
 		console.log(_list);
-		$answerModal.closeModal();
+		$answerModal.modal('close');
 		if (_list.length > 0) {
 			for (var i = _list.length - 1; i >= 0; i--) {
 				flipBox($(_list[i]));
@@ -221,13 +240,13 @@ var GameController = (function() {
 		}
 
 	},
-	setQuestionBackground = function(index) {
-		src = 'images/question_background/' + (index+1) + '.jpg'
+	setQuestionBackground = function(image) {
+		src = '../assets/image/' + image;
 		$questionBg.attr({src: src, width: 640, height: 258});
 		return true;
 	},
-	setPageBackground = function(index) {
-		src = 'url(images/page_background/' + (index+1) + '.jpg)';
+	setPageBackground = function(image) {
+		src = 'url(../assets/background/' + image + ')';
 		$('#frontscene').css('background-image', src);
 
 		return true;
@@ -276,8 +295,8 @@ var GameController = (function() {
 		questionIndex = _index;
 		makeBoxes(_question.answer);
 		setQuestion(_question.question);
-		setQuestionBackground(_index);
-		setPageBackground(_index);
+		setQuestionBackground(_question.image);
+		setPageBackground(_question.background);
 		console.log(_question);
 		list[_index].isActive = true;
 		remaningLetters = $('span.box:not(.space)').length;
@@ -293,6 +312,9 @@ var GameController = (function() {
 	(function() {
 		
 		selectQuestion();
+		// Register modal
+		$answerModal.modal({dismissible: false});
+		$selectModal.modal({dismissible: false});
 		//newGame(1);
 		//openCurtain();
 		// Register KeyEvent
@@ -318,7 +340,7 @@ var GameController = (function() {
 			luckyFlip = true;
 		},
 		showAnswerModal: function() {
-			$answerModal.openModal({dismissible: false});
+			$answerModal.modal('open');
 			prepareToAnswer();
 		},
 		isComplete: function() {

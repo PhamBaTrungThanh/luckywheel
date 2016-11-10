@@ -42,6 +42,7 @@ const _defaultConfig = {
 		return list;
 	};
 	const saveWheelImage = (dataURL) => {
+		/*
 		const data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
 			asArray = new Uint8Array(data.length);
 
@@ -50,7 +51,9 @@ const _defaultConfig = {
 		}
 
 		const blob = new Blob( [ asArray.buffer ], {type: "image/png"} );
-		fs.writeFileSync('./assets/wheel.png', blob.body);
+		console.log(blob);*/
+		const base64Data = dataURL.replace(/^data:image\/png;base64,/, "");
+		fs.writeFileSync('./assets/wheel.png', base64Data, 'base64');
 	};
 	const save = () => {
 		fs.writeFileSync('./src/config.json', JSON.stringify(_config), 'utf-8');

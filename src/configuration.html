@@ -12,6 +12,9 @@
 		#c {
 			display: none;
 		}
+		.sweet-image {
+			border: 1px solid black;
+		}
 		.see-wheel.pinned {
 			margin-top: 80px;
 		}
@@ -28,6 +31,40 @@
 		}
 		.hidden {
 			display: none;
+		}
+		@font-face {
+		font-family: "Roboto";
+		src: local(Roboto Thin), url("fonts/roboto/Roboto-Thin.eot");
+		src: url("fonts/roboto/Roboto-Thin.eot?#iefix") format("embedded-opentype"), url("fonts/roboto/Roboto-Thin.woff2") format("woff2"), url("fonts/roboto/Roboto-Thin.woff") format("woff"), url("fonts/roboto/Roboto-Thin.ttf") format("truetype");
+		font-weight: 200;
+		}
+
+		@font-face {
+		font-family: "Roboto";
+		src: local(Roboto Light), url("fonts/roboto/Roboto-Light.eot");
+		src: url("fonts/roboto/Roboto-Light.eot?#iefix") format("embedded-opentype"), url("fonts/roboto/Roboto-Light.woff2") format("woff2"), url("fonts/roboto/Roboto-Light.woff") format("woff"), url("fonts/roboto/Roboto-Light.ttf") format("truetype");
+		font-weight: 300;
+		}
+
+		@font-face {
+		font-family: "Roboto";
+		src: local(Roboto Regular), url("fonts/roboto/Roboto-Regular.eot");
+		src: url("fonts/roboto/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/roboto/Roboto-Regular.woff2") format("woff2"), url("fonts/roboto/Roboto-Regular.woff") format("woff"), url("fonts/roboto/Roboto-Regular.ttf") format("truetype");
+		font-weight: 400;
+		}
+
+		@font-face {
+		font-family: "Roboto";
+		src: url("fonts/roboto/Roboto-Medium.eot");
+		src: url("fonts/roboto/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("fonts/roboto/Roboto-Medium.woff2") format("woff2"), url("fonts/roboto/Roboto-Medium.woff") format("woff"), url("fonts/roboto/Roboto-Medium.ttf") format("truetype");
+		font-weight: 500;
+		}
+
+		@font-face {
+		font-family: "Roboto";
+		src: url("fonts/roboto/Roboto-Bold.eot");
+		src: url("fonts/roboto/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("fonts/roboto/Roboto-Bold.woff2") format("woff2"), url("fonts/roboto/Roboto-Bold.woff") format("woff"), url("fonts/roboto/Roboto-Bold.ttf") format("truetype");
+		font-weight: 700;
 		}
 	</style>
 </head>
@@ -46,7 +83,7 @@
 					<ul class="tabs">
 						<li class="tab col s3"><a href="#cauhoi">Câu hỏi</a></li>
 						<li class="tab col s3"><a href="#vongquay">Vòng quay</a></li>
-						<li class="tab col s3"><a href="#amthanh">Âm thanh</a></li>
+						<li class="tab col s3 disabled"><a href="#amthanh">Âm thanh</a></li>
 						<li class="tab col s3 disabled"><a href="#memes">Memes</a></li>
 					</ul>
 				</div>
@@ -83,7 +120,8 @@
 				</div>
 				<div class="row">
 					<div class="col s12 center-align">
-						<a class="btn green darken-2 waves-effect" id="addWheelBox">Thêm ô</a>
+						<p><a class="btn green darken-2 waves-effect" id="addWheelBox">Thêm ô</a></p>
+						<p><span>Lưu ý: Tổng số ô phải là số chẵn</span></p>
 					</div>
 				</div>
 			</div>
@@ -110,8 +148,8 @@
 	<script src="js/libraries/sweetalert2.js"></script>
 	<script>
 	jQuery(document).ready(function() {
-		configurationController.reloadQuestions();
-		configurationController.reloadWheel();
+		configurationController.reloadQuestions(true);
+		configurationController.reloadWheel(true);
 		
 		$('.see-wheel').pushpin({ top: 182.5 }).on('click', () => {
 			configurationController.viewWheel();
